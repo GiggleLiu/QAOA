@@ -90,9 +90,6 @@ def c_op(clause_list):
         func, func(t, qureg) for time evolution exp(-iCt).
     '''
     def expb(t, qureg):
-        #for w, zstring in clause_list:
-        #    hamiltonian = w*ops.QubitOperator(' '.join(['Z%d'%i for i in zstring]))
-        #    ops.TimeEvolution(t, hamiltonian=hamiltonian) | qureg
         hamiltonian = reduce(lambda x,y:x+y, [w*ops.QubitOperator(' '.join(['Z%d'%i for i in zstring])) for w, zstring in clause_list])
         ops.TimeEvolution(t, hamiltonian=hamiltonian) | qureg
     return expb
@@ -106,9 +103,6 @@ def b_op():
         func, func(t, qureg) for time evolution exp(-iBt).
     """
     def expb(t, qureg):
-        #for i in range(len(qureg)):
-        #    hamiltonian = ops.QubitOperator('X%d'%i)
-        #    ops.TimeEvolution(t, hamiltonian=hamiltonian) | qureg
         hamiltonian = reduce(lambda x,y:x+y, [ops.QubitOperator('X%d'%i) for i in range(len(qureg))])
         ops.TimeEvolution(t, hamiltonian=hamiltonian) | qureg
     return expb

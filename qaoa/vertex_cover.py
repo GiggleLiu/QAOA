@@ -12,7 +12,7 @@ def is_vertex_cover(graph, z):
 
 def vertex_cover_loss(z, graph, mask):
     """
-    the objective function to minimize: - (counts the number of 0 bits in an integer),
+    the objective function to minimize: -(# of 0 in a bit string),
     corresponding to maximising the number of vertices NOT in the vertex cover
     """
     if not mask[z]:
@@ -22,3 +22,13 @@ def vertex_cover_loss(z, graph, mask):
     for i in range(n):
         s += get_bit(z, i)
     return s - n
+
+def get_vertex_cover_clauses(graph):
+    '''
+    C = \sum -0.5*(Zi+1), mapping is 0->down, 1->up.
+    '''
+    raise NotImplementedError()
+    clause_list = []
+    for v in graph.vs:
+        clause_list.append(-(0.5, (v.index,)))
+    return clause_list

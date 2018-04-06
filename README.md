@@ -6,8 +6,15 @@ Code is base on QAOA paper, [Farhi, E., Goldstone, J., & Gutmann, S. (2014). A Q
 Code is partly referenced from [minimum vertex cover problem](https://github.com/sam-marsh/Vertex-Cover-QAOA) project.
 
 ## Features:
+
 * max-cut problem and vertex cover problem,
 * improved performance (with respect to Vertex-Cover-QAOA),
 * general purposed,
 * projectq support.
 
+## To Run Tests
+```bash
+$ cd qaoa
+$ ./ui.py mc   # training max cut problem
+$ ./ui.py vc   # training vertex cover problem
+```

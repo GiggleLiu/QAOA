@@ -2,27 +2,37 @@
 qaoa lib for training.
 '''
 
+from __future__ import division
 import numpy as np
 
-def get_qaoa_loss(circuit, loss_table):
+def get_qaoa_loss(circuit, loss_table, var_mask=None, x0=None):
     '''
     obtain the loss function for qaoa.
 
     Args:
         circuit (QAOACircuit): quantum circuit designed for QAOA.
         loss_table: a table of loss, iterating over 2**num_bit configurations.
+        var_mask (1darray, dtype='bool'): mask for training parameters.
 
     Returns:
         func, loss function with single parameter x.
     '''
+    if var_mask is None:
+        var_mask = np.ones(circuit.num_param, dtype='bool')
+    if x0 is None:
+        x0 = np.zeros(len(var_mask))
+    log = {'loss':[]}
     def loss(params):
-        bs, gs = params[:circuit.depth], params[circuit.depth:]
+        x0[var_mask] = params
+        bs, gs = x0[:circuit.depth], x0[circuit.depth:]
         psi = circuit.evolve(bs, gs)
         pl = np.abs(psi)**2
         exp_val = (loss_table*pl).sum()
-        print(exp_val)
+        if log is not None:
+            log['loss'].append(exp_val)
+        print('loss = %s'%exp_val)
         return exp_val
-    return loss
+    return loss, log
 
 def qaoa_result_digest(x, circuit, loss_table):
     """
