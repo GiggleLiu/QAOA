@@ -1,5 +1,5 @@
 # Quantum Approximate Optimization Algorithm (scipy implementation)
-**warning: this project is not mature, think before using it.**
+**warning: this project is under development, think before using it.**
 
 
 Code is base on QAOA paper, [Farhi, E., Goldstone, J., & Gutmann, S. (2014). A Quantum Approximate Optimization Algorithm](http://arxiv.org/abs/1411.4028).
